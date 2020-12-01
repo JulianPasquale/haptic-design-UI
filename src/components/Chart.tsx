@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceArea,
+  AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceArea,
 } from 'recharts';
 
 interface Point {
@@ -17,8 +17,6 @@ interface IState {
   refAreaRight: string | number,
   top: string | number,
   bottom: string | number,
-  top2: string | number,
-  bottom2: string | number,
   animation: true,
 }
 
@@ -52,24 +50,21 @@ const initialState: IState = {
   refAreaLeft: '',
   refAreaRight: '',
   top: 'dataMax+1',
-  bottom: 'dataMin-1',
-  top2: 'dataMax+20',
-  bottom2: 'dataMin-20',
+  bottom: 'dataMin',
   animation: true,
 };
 
-const getAxisYDomain = (from: number, to: number, ref: keyof Point, offset: number): number[] => {
+const getAxisYDomain = (
+  from: number,
+  to: number,
+  ref: keyof Point,
+): number[] => {
   const refData: Point[] = data.slice(from - 1, to);
-  let [bottom, top]: number[] = [
-    refData[0][ref],
-    refData[0][ref]
-  ];
-  refData.forEach((d: Point): void => {
-    if (d[ref] > top) top = d[ref];
-    if (d[ref] < bottom) bottom = d[ref];
-  });
 
-  return [(bottom | 0) - offset, (top | 0) + offset];
+  return [
+    Math.min(...refData.map((point: Point): number => point[ref])),
+    Math.max(...refData.map((point: Point): number => point[ref])),
+  ];
 };
 
 export default (): React.ReactElement => {
@@ -94,8 +89,7 @@ export default (): React.ReactElement => {
     if (refAreaLeft > refAreaRight) [refAreaLeft, refAreaRight] = [refAreaRight, refAreaLeft];
 
     // yAxis domain
-    const [bottom, top] = getAxisYDomain(refAreaLeft, refAreaRight, 'cost', 1);
-    const [bottom2, top2] = getAxisYDomain(refAreaLeft, refAreaRight, 'impression', 50);
+    const [bottom, top] = getAxisYDomain(refAreaLeft, refAreaRight, 'cost');
 
     setState({
       ...state,
@@ -106,8 +100,6 @@ export default (): React.ReactElement => {
       right: refAreaRight,
       bottom,
       top,
-      bottom2,
-      top2,
     });
   }
 
@@ -119,26 +111,17 @@ export default (): React.ReactElement => {
       left: 'dataMin',
       right: 'dataMax',
       top: 'dataMax+1',
-      bottom: 'dataMin',
-      top2: 'dataMax+50',
-      bottom2: 'dataMin+50',
+      bottom: 'dataMin'
     });
   }
 
   return (
-    <div
-      className="highlight-bar-charts"
-      style={{ userSelect: 'none' }}
-    >
-      <button
-        // href="javascript: void(0);"
-        className="btn update"
-        onClick={zoomOut}
-      >
+    <div style={{ userSelect: 'none' }}>
+      <button onClick={zoomOut}>
         Zoom Out
       </button>
 
-      <LineChart
+      <AreaChart
         width={800}
         height={400}
         data={state.data}
@@ -153,22 +136,16 @@ export default (): React.ReactElement => {
           domain={[state.left, state.right]}
           type='number'
         />
+
         <YAxis
           allowDataOverflow
           domain={[state.bottom, state.top]}
           type='number'
           yAxisId='1'
         />
-        <YAxis
-          orientation="right"
-          allowDataOverflow
-          domain={[state.bottom2, state.top2]}
-          type="number"
-          yAxisId="2"
-        />
+
+        <Area yAxisId="1" type="monotone" dataKey="cost" stroke="#8884d8" animationDuration={300} />
         <Tooltip />
-        <Line yAxisId="1" type="natural" dataKey="cost" stroke="#8884d8" animationDuration={300} />
-        <Line yAxisId="2" type="natural" dataKey="impression" stroke="#82ca9d" animationDuration={300} />
 
         {
           state.refAreaLeft &&
@@ -181,7 +158,7 @@ export default (): React.ReactElement => {
             />
           )
         }
-      </LineChart>
+      </AreaChart>
 
     </div>
   );
