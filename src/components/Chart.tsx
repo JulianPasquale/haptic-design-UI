@@ -3,11 +3,24 @@ import {
   LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceArea,
 } from 'recharts';
 
-type Point = {
-  name: number | string,
+interface Point {
+  name: number,
   cost: number,
   impression: number
 };
+
+interface IState {
+  data: Point[],
+  left: string | number,
+  right: string | number,
+  refAreaLeft: string | number,
+  refAreaRight: string | number,
+  top: string | number,
+  bottom: string | number,
+  top2: string | number,
+  bottom2: string | number,
+  animation: true,
+}
 
 const data: Point[] = [
   { name: 1, cost: 4.11, impression: 100 },
@@ -32,7 +45,7 @@ const data: Point[] = [
   { name: 20, cost: 7, impression: 100 },
 ];
 
-const initialState = {
+const initialState: IState = {
   data,
   left: 'dataMin',
   right: 'dataMax',
@@ -45,13 +58,13 @@ const initialState = {
   animation: true,
 };
 
-const getAxisYDomain = (from: any, to: any, ref: string, offset: number): (any)[] => {
-  const refData: any[] = data.slice(from - 1, to);
-  let [bottom, top]: any[] = [
+const getAxisYDomain = (from: number, to: number, ref: keyof Point, offset: number): number[] => {
+  const refData: Point[] = data.slice(from - 1, to);
+  let [bottom, top]: number[] = [
     refData[0][ref],
     refData[0][ref]
   ];
-  refData.forEach((d: any): void => {
+  refData.forEach((d: Point): void => {
     if (d[ref] > top) top = d[ref];
     if (d[ref] < bottom) bottom = d[ref];
   });
@@ -65,7 +78,10 @@ export default (): React.ReactElement => {
   const zoom = (): void => {
     let { refAreaLeft, refAreaRight } = state;
 
-    if (state.refAreaLeft === state.refAreaRight || state.refAreaRight === '') {
+    if (refAreaLeft === refAreaRight ||
+      typeof refAreaLeft === 'string' ||
+      typeof refAreaRight === 'string') {
+
       setState({
         ...state,
         refAreaLeft: '',
