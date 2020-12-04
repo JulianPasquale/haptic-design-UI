@@ -3,8 +3,7 @@ import { IState } from './chart.d'
 import data from './data'
 
 import AreaChart from './AreaChart'
-
-// import CustomTooltip from './Tooltip'
+import Dialog from './DotDialog'
 
 const initialState: IState = {
   data
@@ -12,15 +11,26 @@ const initialState: IState = {
 
 export default (): ReactElement => {
   const [state, setState] = useState(initialState);
+  const [open, setOpen] = useState(false);
 
-  const handleDotClick = (e: any) => {
-    debugger;
+  const handleClickOpen = (e: any) => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
-    <AreaChart
-      data={state.data}
-      handleDotClick={handleDotClick}
-    />
+    <>
+      <AreaChart
+        data={state.data}
+        handleDotClick={handleClickOpen}
+      />
+      <Dialog
+        open={open}
+        handleClose={handleClose}
+      />
+    </>
   );
 };
