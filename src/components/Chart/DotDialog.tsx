@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,34 +7,42 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-type DialogProps = {
-  handleClose: () => void,
-  open: boolean,
-};
+import { DialogProps } from './chart.d';
 
-export default ({ open, handleClose }: DialogProps): ReactElement => (
-  <div>
-    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+export default ({ open, dotIndex, payload, handleClose, handleUpdateDot }: DialogProps): ReactElement => {
+  const [value, setValue] = useState(payload?.value)
+
+  return (
+    <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
+      <DialogTitle id='form-dialog-title'>Editar</DialogTitle>
+
       <DialogContent>
         <DialogContentText>
-          To subscribe to this website, please enter your email address here. We will send updates
-          occasionally.
-          </DialogContentText>
+          {`Editar punto ${payload?.name}`}
+        </DialogContentText>
+
         <TextField
           autoFocus
-          margin="dense"
-          id="name"
-          label="Email Address"
-          type="email"
+          margin='dense'
+          label='value'
+          type='number'
           fullWidth
+          value={value}
+          defaultValue={payload?.value}
+          // Type of event has to be any: https://github.com/mui-org/material-ui/issues/15400#issuecomment-484891583
+          onChange={(event: any) => setValue(event.target.value)}
         />
       </DialogContent>
+
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleClose} color='primary'>
           Cancel
-          </Button>
+      </Button>
+
+        <Button onClick={(): void => handleUpdateDot(dotIndex, value)} color='primary'>
+          Guardar
+      </Button>
       </DialogActions>
     </Dialog>
-  </div>
-);
+  )
+};

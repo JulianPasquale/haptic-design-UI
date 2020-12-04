@@ -3,7 +3,7 @@ import Chart from './components/Chart';
 
 const App: React.FC = (): React.ReactElement => (
   <div className='App'>
-    <div style={{ width: '90%', height: '300px' }}>
+    <div style={{ width: '90%', height: '600px' }}>
       <Chart />
     </div>
   </div>

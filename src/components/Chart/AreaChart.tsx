@@ -8,20 +8,11 @@ import {
   CartesianGrid,
   ResponsiveContainer
 } from 'recharts';
-import { Point } from './chart.d'
-import {
-  TOP,
-  BOTTOM,
-  LEFT,
-  RIGHT
-} from './constants';
 
-type AreaProps = {
-  data: Point[],
-  handleDotClick: (e: any) => void,
-}
+import { TOP, BOTTOM, LEFT, RIGHT } from './constants';
+import { AreaChartProps } from './chart.d'
 
-export default ({ data, handleDotClick }: AreaProps): ReactElement => (
+export default ({ data, handleDotClick }: AreaChartProps): ReactElement => (
   <ResponsiveContainer>
     <AreaChart data={data}>
       <CartesianGrid strokeDasharray='3 3' />
