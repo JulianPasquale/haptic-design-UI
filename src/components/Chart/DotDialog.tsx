@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { DialogProps } from './chart.d';
+import { DialogProps } from './index.d';
 
 export default ({ open, dotIndex, payload, handleClose, handleUpdateDot }: DialogProps): ReactElement => {
   const [value, setValue] = useState(payload?.value)
@@ -28,7 +28,6 @@ export default ({ open, dotIndex, payload, handleClose, handleUpdateDot }: Dialo
           type='number'
           fullWidth
           value={value}
-          defaultValue={payload?.value}
           // Type of event has to be any: https://github.com/mui-org/material-ui/issues/15400#issuecomment-484891583
           onChange={(event: any) => setValue(event.target.value)}
         />

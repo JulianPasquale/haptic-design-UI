@@ -1,4 +1,4 @@
-import { Point } from './chart.d';
+import { Point } from './index.d';
 
 const data: Point[] = [
   { name: 1, value: 4.11, },

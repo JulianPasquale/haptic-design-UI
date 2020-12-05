@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 
 import { TOP, BOTTOM, LEFT, RIGHT } from './constants';
-import { AreaChartProps } from './chart.d'
+import { AreaChartProps } from './index.d'
 
 export default ({ data, handleDotClick }: AreaChartProps): ReactElement => (
   <ResponsiveContainer>

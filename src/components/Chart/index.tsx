@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { IState, DialogState } from './chart.d'
+import { IState, DialogState } from './index.d'
 import data from './data'
 
 import AreaChart from './AreaChart'
