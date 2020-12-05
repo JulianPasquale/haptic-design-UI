@@ -53,7 +53,7 @@ const EditVibration: React.FC = (): React.ReactElement => {
 
   const handleUpdateDot = (index: number | null, value: number | undefined): void => {
     // 0 is considered as false.
-    if (!index || (!value && value !== 0)) {
+    if ((!index && index !== 0) || (!value && value !== 0)) {
       return;
     };
 
