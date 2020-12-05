@@ -1,64 +1,49 @@
-import React, { ReactElement, useState } from 'react';
-import { IState } from './index.d'
+import React, { ReactElement } from 'react';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer
+} from 'recharts';
 
-import data from './data'
-import AreaChart from './AreaChart'
-import { EditFormDialog } from '../Dialog'
+import { ChartProps, TOP, BOTTOM, LEFT, RIGHT } from './index.d'
 
+// import Tooltip from './Tooltip'
 
-import { DialogState } from '../Dialog/index.d'
-// import CustomTooltip from './Tooltip'
+export type { Point } from './index.d';
 
-const initialState: IState = {
-  data,
-};
+const Chart: React.FC<ChartProps> = ({ data, handleDotClick }: ChartProps): ReactElement => (
+  <ResponsiveContainer>
+    <AreaChart data={data}>
+      <CartesianGrid strokeDasharray='3 3' />
 
-const dialogInitialState: DialogState = {
-  open: false,
-  payload: null,
-  dotIndex: null,
-  title: '',
-};
-
-export default (): ReactElement => {
-  const [state, setState] = useState(initialState);
-  const [dialogState, setDialogState] = useState(dialogInitialState);
-
-  const handleClickOpen = (e: any) => {
-    setDialogState({
-      open: true,
-      payload: e.payload,
-      dotIndex: e.index,
-      title: `Editar punto ${e.payload.name}`,
-    });
-  };
-
-  const handleClose = () => {
-    setDialogState(dialogInitialState);
-  };
-
-  const handleUpdateDot = (index: number | null, value: number | undefined) => {
-    if (!index || !value) {
-      return;
-    };
-
-    const { data } = state;
-    data[index].value = value;
-
-    setState({ data });
-  };
-
-  return (
-    <>
-      <AreaChart
-        data={state.data}
-        handleDotClick={handleClickOpen}
+      <XAxis
+        dataKey='name'
+        domain={[LEFT, RIGHT]}
+        type='number'
       />
-      <EditFormDialog
-        {...dialogState}
-        handleClose={handleClose}
-        handleSubmit={handleUpdateDot}
+
+      <YAxis
+        allowDataOverflow
+        domain={[BOTTOM, TOP]}
+        type='number'
       />
-    </>
-  );
-};
+
+      <Tooltip />
+
+      <Area
+        type='monotone'
+        dataKey='value'
+        stroke='#8884d8'
+        animationDuration={300}
+        activeDot={{ onClick: handleDotClick, cursor: 'pointer' }}
+      />
+
+    </AreaChart>
+  </ResponsiveContainer>
+);
+
+export default Chart;

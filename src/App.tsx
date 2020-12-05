@@ -1,5 +1,5 @@
 import React from 'react';
-import EditVibration from './pages/EditVibration';
+import EditVibration from './modules/EditVibration';
 
 // material-ui
 import CssBaseline from '@material-ui/core/CssBaseline';

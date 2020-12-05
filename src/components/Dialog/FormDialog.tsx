@@ -2,13 +2,15 @@ import React, { ReactElement, useCallback, useState } from 'react';
 import { FormDialogProps } from './index.d';
 
 // material-ui
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+  Button,
+  Input,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from '@material-ui/core';
 
 export default (
   {
@@ -21,10 +23,10 @@ export default (
     handleSubmit,
   }: FormDialogProps
 ): ReactElement => {
-  const [value, setValue] = useState(payload?.value)
+  const [value, setValue] = useState(String(payload?.value))
 
   const submitCallback = useCallback(
-    (): void => handleSubmit(dotIndex, value),
+    (): void => handleSubmit(dotIndex, parseFloat(value)),
     [handleSubmit, dotIndex, value],
   );
 
@@ -37,10 +39,10 @@ export default (
           {title}
         </DialogContentText>
 
-        <TextField
+        <Input
           autoFocus
+          required
           margin='dense'
-          label='value'
           type='number'
           fullWidth
           value={value}
