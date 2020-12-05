@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, useCallback, useState, useEffect } from 'react';
 import { FormDialogProps } from './index.d';
 
 // material-ui
@@ -29,6 +29,8 @@ export default (
     (): void => handleSubmit(dotIndex, parseFloat(value)),
     [handleSubmit, dotIndex, value],
   );
+
+  useEffect(() => setValue(String(payload?.value)), [setValue, payload]);
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
