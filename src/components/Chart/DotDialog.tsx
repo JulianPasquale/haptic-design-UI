@@ -39,13 +39,13 @@ export default ({ open, dotIndex, payload, handleClose, handleUpdateDot }: Dialo
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={handleClose} color='primary'>
-          Cancel
-      </Button>
+        <Button onClick={handleClose} color='default' variant='contained'>
+          Cancelar
+        </Button>
 
-        <Button onClick={handleUpdate} color='primary'>
+        <Button onClick={handleUpdate} color='primary' variant='contained'>
           Guardar
-      </Button>
+        </Button>
       </DialogActions>
     </Dialog>
   )
