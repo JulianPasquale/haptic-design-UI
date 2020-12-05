@@ -1,10 +1,12 @@
 import React, { ReactElement, useState } from 'react';
-import { IState, DialogState } from './index.d'
+import { IState } from './index.d'
+
 import data from './data'
-
 import AreaChart from './AreaChart'
-import Dialog from './DotDialog'
+import { EditFormDialog } from '../Dialog'
 
+
+import { DialogState } from '../Dialog/index.d'
 // import CustomTooltip from './Tooltip'
 
 const initialState: IState = {
@@ -15,6 +17,7 @@ const dialogInitialState: DialogState = {
   open: false,
   payload: null,
   dotIndex: null,
+  title: '',
 };
 
 export default (): ReactElement => {
@@ -22,11 +25,16 @@ export default (): ReactElement => {
   const [dialogState, setDialogState] = useState(dialogInitialState);
 
   const handleClickOpen = (e: any) => {
-    setDialogState({ open: true, payload: e.payload, dotIndex: e.index });
+    setDialogState({
+      open: true,
+      payload: e.payload,
+      dotIndex: e.index,
+      title: `Editar punto ${e.payload.name}`,
+    });
   };
 
   const handleClose = () => {
-    setDialogState({ open: false, payload: null, dotIndex: null });
+    setDialogState(dialogInitialState);
   };
 
   const handleUpdateDot = (index: number | null, value: number | undefined) => {
@@ -46,10 +54,10 @@ export default (): ReactElement => {
         data={state.data}
         handleDotClick={handleClickOpen}
       />
-      <Dialog
+      <EditFormDialog
         {...dialogState}
         handleClose={handleClose}
-        handleUpdateDot={handleUpdateDot}
+        handleSubmit={handleUpdateDot}
       />
     </>
   );
