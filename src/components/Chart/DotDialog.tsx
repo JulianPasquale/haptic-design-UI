@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,6 +11,11 @@ import { DialogProps } from './index.d';
 
 export default ({ open, dotIndex, payload, handleClose, handleUpdateDot }: DialogProps): ReactElement => {
   const [value, setValue] = useState(payload?.value)
+
+  const handleUpdate = useCallback(
+    (): void => handleUpdateDot(dotIndex, value),
+    [handleUpdateDot, dotIndex, value],
+  );
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
@@ -38,7 +43,7 @@ export default ({ open, dotIndex, payload, handleClose, handleUpdateDot }: Dialo
           Cancel
       </Button>
 
-        <Button onClick={(): void => handleUpdateDot(dotIndex, value)} color='primary'>
+        <Button onClick={handleUpdate} color='primary'>
           Guardar
       </Button>
       </DialogActions>
