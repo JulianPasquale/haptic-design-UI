@@ -64,6 +64,7 @@ const EditVibration: React.FC = (): React.ReactElement => {
     };
 
     setState({ data });
+    handleClose();
   };
 
   return (
@@ -94,7 +95,7 @@ const EditVibration: React.FC = (): React.ReactElement => {
         handleSubmit={handleUpdateDot}
       />
     </>
-  )
+  );
 };
 
 export default EditVibration;
