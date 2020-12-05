@@ -10,7 +10,7 @@ import Chart from '../../components/Chart';
 import data from '../../components/Chart/data';
 
 // Dialog
-import { EditFormDialog, DialogState } from '../../components/Dialog';
+import FormDialog, { DialogState } from '../../components/Dialog';
 
 const initialState = { data };
 
@@ -19,38 +19,39 @@ const dialogInitialState: DialogState = {
   payload: null,
   dotIndex: null,
   title: '',
+  header: '',
 };
 
 const EditVibration: React.FC = (): React.ReactElement => {
   const [state, setState] = useState(initialState);
   const [dialogState, setDialogState] = useState(dialogInitialState);
 
-  const handleDotClick = (e: any) => {
-    setDialogState({
-      open: true,
-      payload: e.payload,
-      dotIndex: e.index,
-      title: `Editar punto ${e.payload.name}`,
-    });
-  };
+  const handleDotClick = (e: any): void => setDialogState({
+    open: true,
+    payload: e.payload,
+    dotIndex: e.index,
+    title: `Editar punto ${e.payload.name}`,
+    header: 'Editar',
+  });
 
-  const handleNewDotClick = () => {
+  const handleNewDotClick = (): void => {
+    const newPosition = state.data.length;
+
     setDialogState({
       open: true,
       payload: {
-        name: state.data.length,
+        name: newPosition,
         value: 0,
       },
-      dotIndex: state.data.length,
-      title: `Nuevo punto`,
+      dotIndex: newPosition,
+      title: `Agregar punto ${newPosition}`,
+      header: 'Nuevo',
     });
   };
 
-  const handleClose = () => {
-    setDialogState(dialogInitialState);
-  };
+  const handleClose = (): void => setDialogState(dialogInitialState);
 
-  const handleUpdateDot = (index: number | null, value: number | undefined) => {
+  const handleUpdateDot = (index: number | null, value: number | undefined): void => {
     // 0 is considered as false.
     if (!index || (!value && value !== 0)) {
       return;
@@ -89,7 +90,7 @@ const EditVibration: React.FC = (): React.ReactElement => {
         </Grid>
       </Grid>
 
-      <EditFormDialog
+      <FormDialog
         {...dialogState}
         handleClose={handleClose}
         handleSubmit={handleUpdateDot}

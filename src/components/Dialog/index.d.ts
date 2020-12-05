@@ -1,6 +1,7 @@
 export interface DialogState {
   open: boolean,
   title: string,
+  header: string,
   dotIndex: number | null,
   payload: {
     name: number,
@@ -11,8 +12,4 @@ export interface DialogState {
 export interface DialogProps extends DialogState {
   handleClose: () => void,
   handleSubmit: (index: number | null, value: number | undefined) => void,
-};
-
-export interface FormDialogProps extends DialogProps {
-  header: string,
 };

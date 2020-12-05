@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useState, useEffect } from 'react';
-import { FormDialogProps } from './index.d';
+import { DialogProps } from './index.d';
 
 // material-ui
 import {
@@ -21,7 +21,7 @@ export default (
     header,
     handleClose,
     handleSubmit,
-  }: FormDialogProps
+  }: DialogProps
 ): ReactElement => {
   const [value, setValue] = useState(String(payload?.value))
 
@@ -30,7 +30,7 @@ export default (
     [handleSubmit, dotIndex, value],
   );
 
-  useEffect(() => setValue(String(payload?.value)), [setValue, payload]);
+  useEffect((): void => setValue(String(payload?.value)), [setValue, payload]);
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
