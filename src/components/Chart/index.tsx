@@ -35,7 +35,7 @@ export default (): ReactElement => {
     };
 
     const { data } = state;
-    data[index]['value'] = value;
+    data[index].value = value;
 
     setState({ data });
   };

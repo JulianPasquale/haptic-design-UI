@@ -1,11 +1,9 @@
 import React from 'react';
-import Chart from './components/Chart';
+import EditVibration from './pages/EditVibration';
 
 const App: React.FC = (): React.ReactElement => (
   <div className='App'>
-    <div style={{ width: '90%', height: '600px' }}>
-      <Chart />
-    </div>
+    <EditVibration />
   </div>
 );
 
