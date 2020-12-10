@@ -10,6 +10,10 @@ export interface Point {
 
 export interface ChartProps {
   data: Point[],
+  left?: number | string,
+  right?: number | string,
+  top?: number | string,
+  bottom?: number | string,
   handleDotClick: (e: any) => void,
 };
 
