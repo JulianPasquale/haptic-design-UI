@@ -26,34 +26,49 @@ const Chart: React.FC<ChartProps> = (
     handleDotClick
   }: ChartProps
 ): ReactElement => (
-    <ResponsiveContainer>
-      <AreaChart data={data}>
-        <CartesianGrid strokeDasharray='3 3' />
+  <ResponsiveContainer>
+    <AreaChart data={data}>
+      <CartesianGrid strokeDasharray='3 3' />
 
-        <XAxis
-          dataKey='name'
-          domain={[left, right]}
-          type='number'
-        />
+      <XAxis
+        dataKey='name'
+        domain={[left, right]}
+        type='number'
+      />
 
-        <YAxis
-          allowDataOverflow
-          domain={[bottom, top]}
-          type='number'
-        />
+      <YAxis
+        allowDataOverflow
+        domain={[bottom, top]}
+        type='number'
+      />
 
-        <Tooltip />
+      <Tooltip />
 
-        <Area
-          type={curveCardinal.tension(1)}
-          dataKey='value'
-          stroke='#8884d8'
-          animationDuration={300}
-          activeDot={{ onClick: handleDotClick, cursor: 'pointer' }}
-        />
+      <Area
+        type={curveCardinal.tension(1)}
+        dataKey='value'
+        stroke='#8884d8'
+        animationDuration={300}
+        activeDot={
+          {
+            onClick: handleDotClick,
+            cursor: 'pointer',
+            stroke: 'white',
+            fill: 'white',
+            strokeWidth: 10
+          }
+        }
+        dot={
+          {
+            stroke: 'black',
+            strokeWidth: 10,
+            fill: 'black'
+          }
+        }
+      />
 
-      </AreaChart>
-    </ResponsiveContainer>
-  );
+    </AreaChart>
+  </ResponsiveContainer>
+);
 
 export default Chart;
