@@ -14,7 +14,11 @@ import { ChartProps, TOP, BOTTOM, LEFT, RIGHT } from './index.d';
 
 // import Tooltip from './Tooltip'
 
+import { scaleLinear } from 'd3-scale';
+
+
 export type { Point } from './index.d';
+
 
 const Chart: React.FC<ChartProps> = (
   {
@@ -25,35 +29,39 @@ const Chart: React.FC<ChartProps> = (
     bottom = BOTTOM,
     handleDotClick
   }: ChartProps
-): ReactElement => (
-    <ResponsiveContainer>
-      <AreaChart data={data}>
-        <CartesianGrid strokeDasharray='3 3' />
+): ReactElement => {
+  const scale = scaleLinear().domain([0, 1000]).range([0, 1]);
 
-        <XAxis
-          dataKey='name'
-          domain={[left, right]}
-          type='number'
-        />
+  return (<ResponsiveContainer>
+    <AreaChart data={data}>
+      <CartesianGrid strokeDasharray='3 3' />
 
-        <YAxis
-          allowDataOverflow
-          domain={[bottom, top]}
-          type='number'
-        />
+      <XAxis
+        dataKey='name'
+        // domain={[left, right]}
+        type='number'
+        scale={scale}
+      />
 
-        <Tooltip />
+      <YAxis
+        allowDataOverflow
+        domain={[bottom, top]}
+        type='number'
+      />
 
-        <Area
-          type={curveCardinal.tension(1)}
-          dataKey='value'
-          stroke='#8884d8'
-          animationDuration={300}
-          activeDot={{ onClick: handleDotClick, cursor: 'pointer' }}
-        />
+      <Tooltip />
 
-      </AreaChart>
-    </ResponsiveContainer>
-  );
+      <Area
+        type={curveCardinal.tension(1)}
+        dataKey='value'
+        stroke='#8884d8'
+        animationDuration={300}
+        activeDot={{ onClick: handleDotClick, cursor: 'pointer' }}
+      />
+
+    </AreaChart>
+  </ResponsiveContainer>
+  )
+};
 
 export default Chart;
