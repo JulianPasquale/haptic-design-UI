@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import styled from 'styled-components';
 
-import { drawerWidth } from './Constants';
+import { drawerWidth } from '../../utils/constants';
 
 const CustomAppBar = styled(AppBar)`
   width: calc(100% - ${drawerWidth}px);

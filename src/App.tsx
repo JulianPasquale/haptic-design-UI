@@ -11,25 +11,36 @@ import {
   Route,
 } from 'react-router-dom';
 
+// styled-components
+import styled from 'styled-components';
+
+// layout
+import withLayout from './utils/hocs/withLayout';
+
 // modules
 import EditVibration from './modules/EditVibration';
 import Home from './modules/Home';
 
+
+const StyledContainer = styled(Container)`
+  display: flex;
+`;
+
 const App: React.FC = (): React.ReactElement => (
   <>
     <CssBaseline />
-    <Container>
+    <StyledContainer>
       <Router>
         <Switch>
           <Route path='/edit/:vibrationId?'>
             <EditVibration />
           </Route>
           <Route path="/">
-            <Home />
+            {withLayout(Home)}
           </Route>
         </Switch>
       </Router>
-    </Container>
+    </StyledContainer>
   </>
 );
 
