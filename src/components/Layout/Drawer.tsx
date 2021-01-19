@@ -16,7 +16,7 @@ import styled from 'styled-components';
 import { drawerWidth, client } from '../../utils';
 
 const StyledDrawer = styled(Drawer)`
-  width: ${drawerWidth};
+  width: ${drawerWidth}px;
   flexShrink: 0;
 `;
 
