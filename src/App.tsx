@@ -37,7 +37,7 @@ const App: React.FC = (): React.ReactElement => (
     <StyledContainer>
       <Router>
         <Switch>
-          <Route path='/edit/:vibrationId?'>
+          <Route path='/edit/:vibrationId'>
             {withLayout(EditVibration)}
           </Route>
           <Route path="/">

@@ -8,7 +8,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
+import { Mail, Home } from '@material-ui/icons';
 
 // styled-components
 import styled from 'styled-components';
@@ -51,6 +51,17 @@ export default (): ReactElement => {
       PaperProps={{ style: { width: drawerWidth } }}
     >
       <List>
+        <ListItem
+          component={Link}
+          to='/'
+          button
+          key='home'
+        >
+          <ListItemIcon>
+            <Home />
+          </ListItemIcon>
+          <ListItemText primary='Home' />
+        </ListItem>
         {
           vibrations.map((vibration) => (
             <ListItem
@@ -60,7 +71,7 @@ export default (): ReactElement => {
               key={vibration.id}
             >
               <ListItemIcon>
-                <MailIcon />
+                <Mail />
               </ListItemIcon>
               <ListItemText primary={vibration.id} />
             </ListItem>
