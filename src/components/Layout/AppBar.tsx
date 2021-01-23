@@ -11,7 +11,7 @@ import { drawerWidth } from '../../utils/constants';
 
 const CustomAppBar = styled(AppBar)`
   width: calc(100% - ${drawerWidth}px);
-  marginLeft: ${drawerWidth};
+  marginLeft: ${drawerWidth}px;
 `;
 
 export default (): React.ReactElement => (

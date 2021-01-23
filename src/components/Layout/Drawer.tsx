@@ -13,27 +13,12 @@ import { Mail, Home } from '@material-ui/icons';
 // styled-components
 import styled from 'styled-components';
 
-import { drawerWidth, client } from '../../utils';
+import { drawerWidth, client, APIResponse } from '../../utils';
 
 const StyledDrawer = styled(Drawer)`
   width: ${drawerWidth}px;
   flexShrink: 0;
 `;
-
-export interface VibrationPattern {
-  name: number,
-  value: number,
-};
-
-export interface VibrationData {
-  duration: number,
-  pattern: VibrationPattern[],
-};
-
-export interface APIResponse {
-  id: string,
-  data: VibrationData,
-};
 
 export default (): ReactElement => {
   const [vibrations, setVibrations] = useState([] as APIResponse[]);
