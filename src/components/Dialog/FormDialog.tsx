@@ -11,6 +11,7 @@ import {
   DialogContentText,
   DialogTitle
 } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 
 export default (
   {
@@ -21,6 +22,7 @@ export default (
     header,
     handleClose,
     handleSubmit,
+    handleDelete,
   }: DialogProps
 ): ReactElement => {
   const [value, setValue] = useState(String(payload?.value))
@@ -28,6 +30,11 @@ export default (
   const submitCallback = useCallback(
     (): void => handleSubmit(dotIndex, parseFloat(value)),
     [handleSubmit, dotIndex, value],
+  );
+
+  const deleteCallback = useCallback(
+    (): void => handleDelete(dotIndex),
+    [handleDelete, dotIndex],
   );
 
   useEffect((): void => setValue(String(payload?.value)), [setValue, payload]);
@@ -53,7 +60,13 @@ export default (
         />
       </DialogContent>
 
+
       <DialogActions>
+        <Button onClick={deleteCallback} variant='contained' color='secondary'>
+          <Delete />
+          Borrar punto
+        </Button>
+
         <Button onClick={handleClose} color='default' variant='contained'>
           Cancelar
         </Button>

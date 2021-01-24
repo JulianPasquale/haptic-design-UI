@@ -24,7 +24,7 @@ interface ApiClient {
 
 const client = axios.create({
   baseURL: BASE_URL,
-  timeout: 3000,
+  timeout: 5000,
   headers: HEADERS,
 });
 

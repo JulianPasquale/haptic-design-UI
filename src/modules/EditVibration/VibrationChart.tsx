@@ -80,6 +80,25 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
     handleClose();
   };
 
+  const handleDeleteDot = (index: number | null): void => {
+    // 0 is considered as false.
+    if (!index && index !== 0) return;
+
+    // Duplicate array.
+    const newPattern = vibration.data.pattern.slice();
+
+    const unchanged = newPattern.slice(0, index);
+    const toUpdate = newPattern.slice(index + 1).map(pattern => (
+      { ...pattern, name: pattern.name - 1 }
+    ));
+
+    const dupVibration = { ...vibration } as APIResponse;
+    dupVibration.data.pattern = [...unchanged, ...toUpdate];
+
+    setVibration({ ...dupVibration });
+    handleClose();
+  };
+
   return (
     <>
       <Grid container>
@@ -106,6 +125,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
         {...dialogState}
         handleClose={handleClose}
         handleSubmit={handleUpdateDot}
+        handleDelete={handleDeleteDot}
       />
     </>
   );

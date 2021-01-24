@@ -12,4 +12,5 @@ export interface DialogState {
 export interface DialogProps extends DialogState {
   handleClose: () => void,
   handleSubmit: (index: number | null, value: number | undefined) => void,
+  handleDelete: (index: number | null) => void,
 };
