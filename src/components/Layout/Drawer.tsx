@@ -8,7 +8,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Mail, Home } from '@material-ui/icons';
+import { Vibration, Home } from '@material-ui/icons';
 
 // styled-components
 import styled from 'styled-components';
@@ -56,7 +56,7 @@ export default (): ReactElement => {
               key={vibration.id}
             >
               <ListItemIcon>
-                <Mail />
+                <Vibration />
               </ListItemIcon>
               <ListItemText primary={vibration.id} />
             </ListItem>
