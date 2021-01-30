@@ -1,0 +1,12 @@
+
+- Crear nueva vibración, enviando un data por defecto.
+- Además del id, guardar nombre de la vibración.
+- Permitir modificar nombre y categoría de la vibración, además de su duración y patrón.
+- Agregar categorías y agrupar sidebar por éstas.
+- Persistir cambios en el gráfico.
+
+# WTH
+- Pedir confirmación al borrar vibración.
+
+# MH
+- Agregar campo duración y cambiar escala del gráfico.

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, FC, ReactElement } from 'react';
 
 // material-ui
-import { Typography, Grid, Fab, Chip } from '@material-ui/core';
-import { Add, Vibration } from '@material-ui/icons';
+import { Grid, Fab } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 
 // Chart
 import Chart from '../../components/Chart';
@@ -101,19 +101,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
   return (
     <>
       <Grid container>
-        <Grid container justify='space-around' alignItems='center'>
-          <span></span>
-          <Typography variant='h3' gutterBottom>
-            {vibration.id}
-          </Typography>
 
-          <Chip
-            icon={<Vibration />}
-            label='Borrar vibración'
-            // onDelete={handleDelete}
-            color='secondary'
-          />
-        </Grid>
 
         <Grid item xs={12}>
           <div style={{ width: '90%', height: '600px' }}>

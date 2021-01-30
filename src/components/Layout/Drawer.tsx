@@ -9,6 +9,7 @@ import { Vibration, Home, Add } from '@material-ui/icons';
 // styled-components
 import styled from 'styled-components';
 
+// utils
 import { drawerWidth, client, APIResponse } from '../../utils';
 
 const StyledDrawer = styled(Drawer)`

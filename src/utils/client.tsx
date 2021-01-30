@@ -20,6 +20,7 @@ interface ApiClient {
   list: () => Promise<AxiosResponse>,
   upsert: () => Promise<AxiosResponse>,
   details: (id: string) => Promise<AxiosResponse>,
+  delete: (id: string) => Promise<AxiosResponse>,
 };
 
 const client = axios.create({
@@ -33,6 +34,7 @@ const instance = (): ApiClient => (
     list: () => client.get(`${BASE_URL}/vibrations`),
     upsert: () => client.post(`${BASE_URL}/vibrations`),
     details: (id: string) => client.get(`${BASE_URL}/vibrations/${id}`),
+    delete: (id: string) => client.delete(`${BASE_URL}/vibrations/${id}`),
   }
 );
 
