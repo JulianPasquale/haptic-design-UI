@@ -3,12 +3,8 @@ import React, { ReactElement, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // material-ui
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Vibration, Home } from '@material-ui/icons';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Button } from '@material-ui/core';
+import { Vibration, Home, Add } from '@material-ui/icons';
 
 // styled-components
 import styled from 'styled-components';
@@ -47,6 +43,20 @@ export default (): ReactElement => {
           </ListItemIcon>
           <ListItemText primary='Home' />
         </ListItem>
+
+        <ListItem
+          component={Button}
+          button
+          key='add'
+        >
+          <ListItemIcon>
+            <Add />
+          </ListItemIcon>
+          <ListItemText primary='Nueva vibración' />
+        </ListItem>
+
+        <Divider />
+
         {
           vibrations.map((vibration) => (
             <ListItem
@@ -63,6 +73,7 @@ export default (): ReactElement => {
           ))
         }
       </List>
+
     </StyledDrawer>
   );
 };

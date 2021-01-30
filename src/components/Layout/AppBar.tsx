@@ -1,9 +1,7 @@
 import React from 'react';
 
 // material-ui
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 import styled from 'styled-components';
 
@@ -22,4 +20,4 @@ export default (): React.ReactElement => (
       </Typography>
     </Toolbar>
   </CustomAppBar>
-)
+);
