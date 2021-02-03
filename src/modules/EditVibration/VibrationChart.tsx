@@ -8,12 +8,12 @@ import { Add } from '@material-ui/icons';
 import Chart from '../../components/Chart';
 
 // Dialog
-import FormDialog, { DialogState } from '../../components/Dialog';
+import { DotForm, DotFormDialogState } from '../../components/Dialog';
 
 import { APIResponse } from '../../utils';
 // import data from '../../components/Chart/data';
 
-const dialogInitialState: DialogState = {
+const dialogInitialState: DotFormDialogState = {
   open: false,
   payload: null,
   dotIndex: null,
@@ -27,13 +27,13 @@ export interface VibrationChartProps {
 
 const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps): ReactElement => {
   const [vibration, setVibration] = useState(data);
-  const [dialogState, setDialogState] = useState(dialogInitialState);
+  const [DotFormDialogState, setDotFormDialogState] = useState(dialogInitialState);
 
   useEffect(() => {
     setVibration(data);
   }, [setVibration, data])
 
-  const handleDotClick = (e: any): void => setDialogState({
+  const handleDotClick = (e: any): void => setDotFormDialogState({
     open: true,
     payload: e.payload,
     dotIndex: e.index,
@@ -44,7 +44,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
   const handleNewDotClick = (): void => {
     const newPosition = vibration.data.pattern.length;
 
-    setDialogState({
+    setDotFormDialogState({
       open: true,
       payload: {
         name: newPosition,
@@ -56,7 +56,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
     });
   };
 
-  const handleClose = (): void => setDialogState(dialogInitialState);
+  const handleClose = (): void => setDotFormDialogState(dialogInitialState);
 
   const handleUpdateDot = (index: number | null, value: number | undefined): void => {
     // 0 is considered as false.
@@ -122,8 +122,8 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
         </Grid>
       </Grid>
 
-      <FormDialog
-        {...dialogState}
+      <DotForm
+        {...DotFormDialogState}
         handleClose={handleClose}
         handleSubmit={handleUpdateDot}
         handleDelete={handleDeleteDot}

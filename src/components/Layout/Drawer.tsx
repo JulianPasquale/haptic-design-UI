@@ -12,19 +12,37 @@ import styled from 'styled-components';
 // utils
 import { drawerWidth, client, APIResponse } from '../../utils';
 
+// dialog
+import { NewVibrationForm, DialogState } from '../../components/Dialog';
+
 const StyledDrawer = styled(Drawer)`
   width: ${drawerWidth}px;
   flexShrink: 0;
 `;
 
+const dialogInitialState: DialogState = {
+  open: false,
+};
+
 export default (): ReactElement => {
   const [vibrations, setVibrations] = useState([] as APIResponse[]);
+  const [dialogState, setDialogState] = useState(dialogInitialState);
 
   useEffect(() => {
     client.list().then((response) => {
       setVibrations(response.data);
     });
   }, [client, setVibrations]);
+
+  const handleCloseDialog = (): void => setDialogState(dialogInitialState);
+
+  const handleNewVibrationClick = (): void => setDialogState({ open: true });
+
+  const handleNewVibrationSubmit = (payload: any): void => {
+    console.log(payload);
+    handleCloseDialog();
+    // POST
+  };
 
   return (
     <StyledDrawer
@@ -48,6 +66,7 @@ export default (): ReactElement => {
         <ListItem
           component={Button}
           button
+          onClick={handleNewVibrationClick}
           key='add'
         >
           <ListItemIcon>
@@ -74,6 +93,12 @@ export default (): ReactElement => {
           ))
         }
       </List>
+
+      <NewVibrationForm
+        {...dialogState}
+        handleClose={handleCloseDialog}
+        handleSubmit={handleNewVibrationSubmit}
+      />
 
     </StyledDrawer>
   );

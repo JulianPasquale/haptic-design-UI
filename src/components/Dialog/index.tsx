@@ -1,5 +1,4 @@
-import FormDialog from './FormDialog';
+export type { DotFormDialogState, NewVibrationProps, DialogState } from './index.d';
 
-export type { DialogState } from './index.d'
-
-export default FormDialog;
+export { default as DotForm } from './FormDialog';
+export { default as NewVibrationForm } from './NewVibrationForm';

@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useState, useEffect } from 'react';
-import { DialogProps } from './index.d';
+import { DotFormProps } from './index.d';
 
 // material-ui
 import {
@@ -23,7 +23,7 @@ export default (
     handleClose,
     handleSubmit,
     handleDelete,
-  }: DialogProps
+  }: DotFormProps
 ): ReactElement => {
   const [value, setValue] = useState(String(payload?.value))
 
@@ -59,7 +59,6 @@ export default (
           onChange={(event: any) => setValue(event.target.value)}
         />
       </DialogContent>
-
 
       <DialogActions>
         <Button onClick={deleteCallback} variant='contained' color='secondary'>
