@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { BASE_URL, HEADERS } from '.';
-
+import { Point } from '../components/Chart';
 export interface VibrationPattern {
   name: number,
   value: number,
@@ -18,9 +18,15 @@ export interface APIResponse {
 
 interface ApiClient {
   list: () => Promise<AxiosResponse>,
-  upsert: () => Promise<AxiosResponse>,
+  upsert: (payload: UpsertPayload) => Promise<AxiosResponse>,
   details: (id: string) => Promise<AxiosResponse>,
   delete: (id: string) => Promise<AxiosResponse>,
+};
+
+interface UpsertPayload {
+  category: string,
+  name: string,
+  data: VibrationData,
 };
 
 const client = axios.create({
@@ -32,7 +38,7 @@ const client = axios.create({
 const instance = (): ApiClient => (
   {
     list: () => client.get(`${BASE_URL}/vibrations`),
-    upsert: () => client.post(`${BASE_URL}/vibrations`),
+    upsert: (payload: UpsertPayload) => client.post(`${BASE_URL}/vibrations`, payload),
     details: (id: string) => client.get(`${BASE_URL}/vibrations/${id}`),
     delete: (id: string) => client.delete(`${BASE_URL}/vibrations/${id}`),
   }

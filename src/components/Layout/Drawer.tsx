@@ -10,7 +10,7 @@ import { Vibration, Home, Add } from '@material-ui/icons';
 import styled from 'styled-components';
 
 // utils
-import { drawerWidth, client, APIResponse } from '../../utils';
+import { drawerWidth, client, APIResponse, initialData } from '../../utils';
 
 // dialog
 import { NewVibrationForm, DialogState } from '../../components/Dialog';
@@ -38,10 +38,9 @@ export default (): ReactElement => {
 
   const handleNewVibrationClick = (): void => setDialogState({ open: true });
 
-  const handleNewVibrationSubmit = (payload: any): void => {
-    console.log(payload);
+  const handleNewVibrationSubmit = async (payload: any): Promise<void> => {
+    await client.upsert({ ...payload, data: initialData });
     handleCloseDialog();
-    // POST
   };
 
   return (
