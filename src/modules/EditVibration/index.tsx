@@ -69,7 +69,7 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
             <Grid container justify='space-around' alignItems='center'>
               <span></span>
               <Typography variant='h3' gutterBottom>
-                {state.id}
+                {state.name}
               </Typography>
 
               <Fab

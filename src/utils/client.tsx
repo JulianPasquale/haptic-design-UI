@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 import { BASE_URL, HEADERS } from '.';
-import { Point } from '../components/Chart';
 export interface VibrationPattern {
   name: number,
   value: number,
@@ -14,6 +13,8 @@ export interface VibrationData {
 export interface APIResponse {
   id: string,
   data: VibrationData,
+  name: string,
+  category: string,
 };
 
 interface ApiClient {

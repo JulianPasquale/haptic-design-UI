@@ -3,8 +3,8 @@ import React, { ReactElement, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // material-ui
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Button } from '@material-ui/core';
-import { Vibration, Home, Add } from '@material-ui/icons';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Button, Collapse } from '@material-ui/core';
+import { Vibration, Home, Add, ExpandLess, ExpandMore, Folder } from '@material-ui/icons';
 
 // styled-components
 import styled from 'styled-components';
@@ -24,15 +24,30 @@ const dialogInitialState: DialogState = {
   open: false,
 };
 
+interface GroupedVibrations {
+  [x: string]: Array<APIResponse>,
+};
+
 export default (): ReactElement => {
-  const [vibrations, setVibrations] = useState([] as APIResponse[]);
+  const [groupedVibrations, setGroupedVibrations] = useState({} as GroupedVibrations);
   const [dialogState, setDialogState] = useState(dialogInitialState);
+  const [expanded, setExpanded] = useState('');
 
   useEffect(() => {
     client.list().then((response) => {
-      setVibrations(response.data);
+      const parsedResponse: GroupedVibrations = {};
+
+      response.data.forEach((vibration: APIResponse) => {
+        if (parsedResponse[vibration.category]) {
+          parsedResponse[vibration.category].push(vibration);
+        } else {
+          parsedResponse[vibration.category] = [vibration];
+        }
+      });
+
+      setGroupedVibrations(parsedResponse);
     });
-  }, [client, setVibrations]);
+  }, [client, setGroupedVibrations]);
 
   const handleCloseDialog = (): void => setDialogState(dialogInitialState);
 
@@ -41,6 +56,10 @@ export default (): ReactElement => {
   const handleNewVibrationSubmit = async (payload: any): Promise<void> => {
     await client.upsert({ ...payload, data: initialData });
     handleCloseDialog();
+  };
+
+  const toggleExpand = (category: string) => {
+    expanded == category ? setExpanded('') : setExpanded(category);
   };
 
   return (
@@ -77,18 +96,43 @@ export default (): ReactElement => {
         <Divider />
 
         {
-          vibrations.map((vibration) => (
-            <ListItem
-              component={Link}
-              to={`/edit/${vibration.id}`}
-              button
-              key={vibration.id}
-            >
-              <ListItemIcon>
-                <Vibration />
-              </ListItemIcon>
-              <ListItemText primary={vibration.id} />
-            </ListItem>
+          Object.entries(groupedVibrations).map(([category, vibrations]) => (
+            <React.Fragment key={category}>
+              <ListItem
+                button
+                onClick={() => toggleExpand(category)}
+              >
+                <ListItemIcon>
+                  <Folder />
+                </ListItemIcon>
+                <ListItemText primary={category} />
+                {expanded == category ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+
+              <Collapse
+                in={expanded == category}
+                timeout='auto'
+                unmountOnExit
+              >
+                <List component='div' disablePadding>
+                  {
+                    vibrations.map((vibration) => (
+                      <ListItem
+                        component={Link}
+                        to={`/edit/${vibration.id}`}
+                        button
+                        key={vibration.id}
+                      >
+                        <ListItemIcon>
+                          <Vibration />
+                        </ListItemIcon>
+                        <ListItemText primary={vibration.name} />
+                      </ListItem>
+                    ))
+                  }
+                </List>
+              </Collapse>
+            </React.Fragment>
           ))
         }
       </List>
@@ -99,6 +143,6 @@ export default (): ReactElement => {
         handleSubmit={handleNewVibrationSubmit}
       />
 
-    </StyledDrawer>
+    </StyledDrawer >
   );
 };
