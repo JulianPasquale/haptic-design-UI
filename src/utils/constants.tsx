@@ -4,7 +4,6 @@ export const HEADERS = { 'content-type': 'application/json' };
 export const initialData = {
   duration: 1,
   pattern: [
-    { name: 0, value: 100, },
     { name: 1, value: 100, },
     { name: 2, value: 100, },
     { name: 3, value: 100, },

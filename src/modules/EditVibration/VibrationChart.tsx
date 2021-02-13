@@ -10,7 +10,7 @@ import Chart from '../../components/Chart';
 // Dialog
 import { DotForm, DotFormDialogState } from '../../components/Dialog';
 
-import { APIResponse } from '../../utils';
+import { APIResponse, client } from '../../utils';
 // import data from '../../components/Chart/data';
 
 const dialogInitialState: DotFormDialogState = {
@@ -76,6 +76,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
     dupVibration.data.pattern = newPattern;
 
     setVibration({ ...dupVibration });
+    client.upsert(dupVibration);
     handleClose();
   };
 
