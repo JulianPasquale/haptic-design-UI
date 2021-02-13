@@ -4,7 +4,7 @@ import { NewVibrationProps } from './index.d';
 // material-ui
 import {
   Button,
-  Input,
+  TextField,
   Dialog,
   DialogActions,
   DialogContent,
@@ -44,22 +44,23 @@ export default (
       </DialogTitle>
 
       <DialogContent>
-        <Input
+        <TextField
           autoFocus
           required
           margin='dense'
           fullWidth
           value={payload.name}
+          label='Nombre'
           // Type of event has to be any: https://github.com/mui-org/material-ui/issues/15400#issuecomment-484891583
           onChange={(event: any) => setPayload({ ...payload, name: event.target.value })}
         />
 
-        <Input
-          autoFocus
+        <TextField
           required
           margin='dense'
           fullWidth
           value={payload.category}
+          label='Categoría'
           // Type of event has to be any: https://github.com/mui-org/material-ui/issues/15400#issuecomment-484891583
           onChange={(event: any) => setPayload({ ...payload, category: event.target.value })}
         />
