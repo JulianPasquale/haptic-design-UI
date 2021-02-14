@@ -12,8 +12,6 @@ import { curveCardinal } from 'd3-shape';
 
 import { ChartProps, TOP, BOTTOM, LEFT, RIGHT } from './index.d';
 
-// import Tooltip from './Tooltip'
-
 export type { Point } from './index.d';
 
 const Chart: React.FC<ChartProps> = (

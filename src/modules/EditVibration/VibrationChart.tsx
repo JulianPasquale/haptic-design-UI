@@ -101,11 +101,9 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
 
   return (
     <>
-      <Grid container>
-
-
+      <Grid container spacing={0}>
         <Grid item xs={12}>
-          <div style={{ width: '90%', height: '600px' }}>
+          <div style={{ width: '90%', height: '90%' }}>
             <Chart
               data={vibration?.data?.pattern || []}
               handleDotClick={handleDotClick}

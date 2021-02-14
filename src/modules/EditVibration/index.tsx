@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, FC, ReactElement } from 'react';
+import styled from 'styled-components';
 
 import { useParams } from "react-router-dom";
 
@@ -13,6 +14,11 @@ import { DeleteForever } from '@material-ui/icons';
 interface RouteParams {
   vibrationId: string;
 };
+
+const StyledGrid = styled(Grid)`
+  height: 90vh;
+  margin-top: 2%;
+`
 
 const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement => {
   const [state, setState] = useState({} as APIResponse);
@@ -66,7 +72,13 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
       } else {
         return (
           <>
-            <Grid container justify='space-around' alignItems='center'>
+            <Grid
+              container
+              justify='space-around'
+              alignItems='center'
+              spacing={0}
+              style={{ height: '5%' }}
+            >
               <span></span>
               <Typography variant='h3' gutterBottom>
                 {state.name}
@@ -95,9 +107,9 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
 
   return (
     <>
-      <Grid container>
+      <StyledGrid container spacing={0}>
         {content}
-      </Grid>
+      </StyledGrid>
     </>
   );
 };
