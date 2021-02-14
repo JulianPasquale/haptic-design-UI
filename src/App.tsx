@@ -22,7 +22,11 @@ import withLayout from './utils/hocs/withLayout';
 import EditVibration from './modules/EditVibration';
 import Home from './modules/Home';
 
+// utils
 import { drawerWidth } from './utils';
+
+// store
+import { StateProvider } from './store';
 
 const theme = createMuiTheme();
 
@@ -31,22 +35,22 @@ const StyledContainer = styled(Container)`
   margin-left: ${drawerWidth};
 `;
 
-const App: React.FC = (): React.ReactElement => (
+export default (): React.ReactElement => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <StyledContainer>
-      <Router>
-        <Switch>
-          <Route path='/edit/:vibrationId'>
-            {withLayout(EditVibration)}
-          </Route>
-          <Route path="/">
-            {withLayout(Home)}
-          </Route>
-        </Switch>
-      </Router>
-    </StyledContainer>
+    <StateProvider>
+      <StyledContainer>
+        <Router>
+          <Switch>
+            <Route path='/edit/:vibrationId'>
+              {withLayout(EditVibration)}
+            </Route>
+            <Route path="/">
+              {withLayout(Home)}
+            </Route>
+          </Switch>
+        </Router>
+      </StyledContainer>
+    </StateProvider>
   </ThemeProvider>
 );
-
-export default App;
