@@ -1,8 +1,8 @@
 import React, { useState, useEffect, FC, ReactElement } from 'react';
 
 // material-ui
-import { Grid, Fab } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import { Grid, Fab, InputAdornment, IconButton, Input } from '@material-ui/core';
+import { Add, Save, Timer } from '@material-ui/icons';
 
 // Chart
 import Chart from '../../components/Chart';
@@ -11,7 +11,6 @@ import Chart from '../../components/Chart';
 import { DotForm, DotFormDialogState } from '../../components/Dialog';
 
 import { APIResponse, client } from '../../utils';
-// import data from '../../components/Chart/data';
 
 const dialogInitialState: DotFormDialogState = {
   open: false,
@@ -112,11 +111,46 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container justify='flex-end' alignItems='flex-end' >
-            <Fab variant='extended' color='primary' aria-label='add' onClick={handleNewDotClick}>
-              <Add />
-              Agregar nuevo punto
-            </Fab>
+          <Grid container justify='space-around' alignItems='flex-end' >
+            <Grid item>
+              <Input
+                startAdornment={
+                  <InputAdornment position="start">
+                    <Timer />
+                  </InputAdornment>
+                }
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => client.upsert(vibration)}
+                      color={vibration?.data?.duration == data?.data?.duration ? 'default' : 'primary'}
+                    >
+                      <Save />
+                    </IconButton>
+                  </InputAdornment>
+                }
+                placeholder='Duración'
+                value={vibration?.data?.duration}
+                onChange={
+                  (event: React.ChangeEvent<HTMLInputElement>) => {
+                    setVibration({
+                      ...vibration,
+                      data: {
+                        ...vibration.data,
+                        duration: parseInt(event.target.value) || 0,
+                      }
+                    } as APIResponse)
+                  }
+                }
+              />
+            </Grid>
+            <Grid item>
+              <Fab variant='extended' color='primary' aria-label='add' onClick={handleNewDotClick}>
+                <Add />
+                Agregar nuevo punto
+              </Fab>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
