@@ -56,6 +56,7 @@ export default (
           fullWidth
           value={value}
           // Type of event has to be any: https://github.com/mui-org/material-ui/issues/15400#issuecomment-484891583
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onChange={(event: any) => setValue(event.target.value)}
         />
       </DialogContent>

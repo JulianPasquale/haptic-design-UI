@@ -32,6 +32,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
     setVibration(data);
   }, [setVibration, data])
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDotClick = (e: any): void => setDotFormDialogState({
     open: true,
     payload: e.payload,

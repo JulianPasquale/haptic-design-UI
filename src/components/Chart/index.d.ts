@@ -14,6 +14,7 @@ export interface ChartProps {
   right?: number | string,
   top?: number | string,
   bottom?: number | string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleDotClick: (e: any) => void,
 };
 

@@ -52,6 +52,7 @@ export default (
           value={payload.name}
           label='Nombre'
           // Type of event has to be any: https://github.com/mui-org/material-ui/issues/15400#issuecomment-484891583
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onChange={(event: any) => setPayload({ ...payload, name: event.target.value })}
         />
 
@@ -62,6 +63,7 @@ export default (
           value={payload.category}
           label='Categoría'
           // Type of event has to be any: https://github.com/mui-org/material-ui/issues/15400#issuecomment-484891583
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onChange={(event: any) => setPayload({ ...payload, category: event.target.value })}
         />
       </DialogContent>

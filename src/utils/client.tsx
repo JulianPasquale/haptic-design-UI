@@ -24,7 +24,7 @@ interface ApiClient {
   delete: (id: string) => Promise<AxiosResponse>,
 };
 
-interface UpsertPayload {
+export interface UpsertPayload {
   category: string,
   name: string,
   data: VibrationData,

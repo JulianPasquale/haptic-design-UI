@@ -10,7 +10,7 @@ import { Vibration, Home, Add, ExpandLess, ExpandMore, Folder } from '@material-
 import styled from 'styled-components';
 
 // utils
-import { drawerWidth, client, APIResponse, initialData } from '../../utils';
+import { drawerWidth, client, APIResponse, initialData, UpsertPayload } from '../../utils';
 
 // dialog
 import { NewVibrationForm, DialogState } from '../../components/Dialog';
@@ -53,7 +53,7 @@ export default (): ReactElement => {
 
   const handleNewVibrationClick = (): void => setDialogState({ open: true });
 
-  const handleNewVibrationSubmit = async (payload: any): Promise<void> => {
+  const handleNewVibrationSubmit = async (payload: UpsertPayload): Promise<void> => {
     await client.upsert({ ...payload, data: initialData });
     handleCloseDialog();
   };
