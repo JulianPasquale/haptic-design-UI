@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "tesis-99ba6"
+  },
+  "targets": {
+    "tesis-99ba6": {
+      "hosting": {
+        "develop": [
+          "develop-haptic-ui"
+        ],
+        "main": [
+          "tesis-99ba6"
+        ]
+      }
+    }
   }
 }

@@ -11,13 +11,31 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: yarn install --check-files && yarn build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      ## Checkout current branch
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn install --check-files
+      - name: Build code
+        run: yarn build
+
+      - name: Set target
+        id: set-target
+        run: |
+          if [[ ${{ github.ref }} == refs/heads/main ]]; then
+            echo "::set-output name=target::$(echo main)"
+          else
+            echo "::set-output name=target::$(echo develop)"
+          fi
+
+      - name: Deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TESIS_99BA6 }}"
           channelId: live
           projectId: tesis-99ba6
+          target: "${{steps.set-target.target}}"
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
