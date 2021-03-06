@@ -6,11 +6,14 @@ import { reducer, Action } from './reducer';
 const initialState: IGlobalState = {
   vibrations: {
     isLoading: false,
-    records: [],
     requested: false,
+    error: false,
+    records: [],
   },
   vibrationDetails: {
     isLoading: false,
+    requested: false,
+    error: false,
     details: {} as APIResponse,
   },
 };
@@ -23,8 +26,7 @@ interface IStore {
 export const store = createContext<IStore>({ state: initialState } as IStore);
 
 interface IStateProvider {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: any,
+  children: ReactElement,
 };
 
 export const StateProvider = ({ children }: IStateProvider): ReactElement => {
@@ -36,3 +38,8 @@ export const StateProvider = ({ children }: IStateProvider): ReactElement => {
     </store.Provider>
   );
 };
+
+export { reducer, ActionType } from './reducer';
+export type { Action } from './reducer';
+
+export * as actions from './actions';

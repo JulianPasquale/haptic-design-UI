@@ -7,11 +7,12 @@ export interface IGlobalState {
 
 interface Requestable {
   isLoading: boolean,
+  error: boolean,
+  requested: boolean,
 }
 
 interface IVibrationsState extends Requestable {
   records: Array<APIResponse>,
-  requested: boolean,
 }
 
 interface IVibrationDetails extends Requestable {

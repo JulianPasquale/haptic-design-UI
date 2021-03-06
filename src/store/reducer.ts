@@ -14,8 +14,10 @@ export enum ActionType {
 export type Action =
   | { type: ActionType.GET_VIBRATIONS_LIST }
   | { type: ActionType.GET_VIBRATIONS_LIST_SUCCESS, data: Array<APIResponse> }
-  | { type: ActionType.GET_VIBRATION_DETAILS, payload: { id: string } }
-  | { type: ActionType.GET_VIBRATION_DETAILS_SUCCESS, data: APIResponse };
+  | { type: ActionType.GET_VIBRATIONS_LIST_ERROR, error: ErrorEvent }
+  | { type: ActionType.GET_VIBRATION_DETAILS }
+  | { type: ActionType.GET_VIBRATION_DETAILS_SUCCESS, data: APIResponse }
+  | { type: ActionType.GET_VIBRATION_DETAILS_ERROR, error: ErrorEvent };
 
 export const reducer = (prevState: IGlobalState, action: Action): IGlobalState => {
   switch (action.type) {
@@ -37,6 +39,14 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
           records: action.data,
         },
       };
+    case ActionType.GET_VIBRATIONS_LIST_ERROR:
+      return {
+        ...prevState,
+        vibrations: {
+          ...prevState.vibrations,
+          error: true,
+        },
+      };
     case ActionType.GET_VIBRATION_DETAILS:
       return {
         ...prevState,
@@ -52,6 +62,14 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
           ...prevState.vibrationDetails,
           isLoading: false,
           details: action.data,
+        },
+      };
+    case ActionType.GET_VIBRATION_DETAILS_ERROR:
+      return {
+        ...prevState,
+        vibrationDetails: {
+          ...prevState.vibrationDetails,
+          error: true,
         },
       };
     default:

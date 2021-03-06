@@ -1,5 +1,5 @@
-import React, { ReactElement, useState, useEffect, useContext, memo } from 'react';
-import { store } from '../../store';
+import React, { ReactElement, useState, useEffect, useContext, useMemo, memo } from 'react';
+import { store, actions } from '../../store';
 
 import { Link } from 'react-router-dom';
 
@@ -30,19 +30,19 @@ interface GroupedVibrations {
 };
 
 export default memo((): ReactElement => {
-  const [groupedVibrations, setGroupedVibrations] = useState({} as GroupedVibrations);
   const [dialogState, setDialogState] = useState(dialogInitialState);
   const [expanded, setExpanded] = useState('');
   const { state, dispatch } = useContext(store);
 
   useEffect(() => {
     if (!state.vibrations.requested) {
-      client.list(dispatch);
-    } else {
-      const parsedResponse: GroupedVibrations = {};
+      actions.listVibrations(dispatch)
+    };
+  }, [state, dispatch, actions])
 
-      console.log(state.vibrations);
-      if (state.vibrations.records.length == 0) debugger;
+  const groupedVibrations = useMemo(
+    () => {
+      const parsedResponse: GroupedVibrations = {};
 
       state.vibrations.records.forEach((vibration: APIResponse) => {
         if (parsedResponse[vibration.category]) {
@@ -52,9 +52,9 @@ export default memo((): ReactElement => {
         }
       });
 
-      setGroupedVibrations(parsedResponse);
-    };
-  }, [state, dispatch, client, setGroupedVibrations])
+      return (parsedResponse as GroupedVibrations);
+    }, [state.vibrations.records]
+  );
 
   const handleCloseDialog = (): void => setDialogState(dialogInitialState);
 
