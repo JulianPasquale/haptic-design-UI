@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "sh -ac '. .env.${REACT_APP_ENV}; echo build_for_${REACT_APP_ENV}; react-scripts build'",
     "test": "react-scripts test",
     "coverage": "yarn test -- --coverage",
     "eject": "react-scripts eject",

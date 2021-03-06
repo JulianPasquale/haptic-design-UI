@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_ENV: production
     steps:
       # Checkout current branch
       - name: Checkout code
@@ -15,6 +17,12 @@ jobs:
         with:
           node-version: "14.15"
 
+      # Set staging env for React app
+      - name: Set staging env
+        if: github.ref == 'refs/heads/develop'
+        run: echo "REACT_APP_ENV=staging" >> $GITHUB_ENV
+
+      # Build code
       - name: Install dependencies
         run: yarn install --check-files
       - name: Build code
