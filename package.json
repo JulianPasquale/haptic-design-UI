@@ -13,6 +13,7 @@
     "@types/recharts": "^1.8.16",
     "@types/styled-components": "^5.1.4",
     "axios": "^0.21.1",
+    "env-cmd": "^10.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -24,7 +25,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "sh -ac '. .env.${REACT_APP_ENV}; echo build_for_${REACT_APP_ENV}; react-scripts build'",
+    "build": "env-cmd -f .env.${REACT_APP_ENV} react-scripts build",
+    "build:staging": "REACT_APP_ENV=staging yarn run build",
+    "build:production": "REACT_APP_ENV=production yarn run build",
     "test": "react-scripts test",
     "coverage": "yarn test -- --coverage",
     "eject": "react-scripts eject",
