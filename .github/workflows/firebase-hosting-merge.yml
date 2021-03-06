@@ -18,6 +18,7 @@ jobs:
           node-version: "14.15"
 
       # Set staging env for React app
+      - run: ls -la
       - name: Set staging env
         if: github.ref == 'refs/heads/develop'
         run: echo "REACT_APP_ENV=staging" >> $GITHUB_ENV
