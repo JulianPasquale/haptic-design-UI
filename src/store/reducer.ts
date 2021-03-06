@@ -9,6 +9,9 @@ export enum ActionType {
   GET_VIBRATION_DETAILS = 'GET_VIBRATION_DETAILS',
   GET_VIBRATION_DETAILS_SUCCESS = 'GET_VIBRATION_DETAILS_SUCCESS',
   GET_VIBRATION_DETAILS_ERROR = 'GET_VIBRATION_DETAILS_ERROR',
+  UPSERT_VIBRATION = 'UPSERT_VIBRATION',
+  UPSERT_VIBRATION_SUCCESS = 'UPSERT_VIBRATION_SUCCESS',
+  UPSERT_VIBRATION_ERROR = 'UPSERT_VIBRATION_ERROR',
 };
 
 export type Action =
@@ -17,7 +20,10 @@ export type Action =
   | { type: ActionType.GET_VIBRATIONS_LIST_ERROR, error: ErrorEvent }
   | { type: ActionType.GET_VIBRATION_DETAILS }
   | { type: ActionType.GET_VIBRATION_DETAILS_SUCCESS, data: APIResponse }
-  | { type: ActionType.GET_VIBRATION_DETAILS_ERROR, error: ErrorEvent };
+  | { type: ActionType.GET_VIBRATION_DETAILS_ERROR, error: ErrorEvent }
+  | { type: ActionType.UPSERT_VIBRATION }
+  | { type: ActionType.UPSERT_VIBRATION_SUCCESS, data: APIResponse }
+  | { type: ActionType.UPSERT_VIBRATION_ERROR, error: ErrorEvent };
 
 export const reducer = (prevState: IGlobalState, action: Action): IGlobalState => {
   switch (action.type) {
@@ -65,6 +71,30 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         },
       };
     case ActionType.GET_VIBRATION_DETAILS_ERROR:
+      return {
+        ...prevState,
+        vibrationDetails: {
+          ...prevState.vibrationDetails,
+          error: true,
+        },
+      };
+    case ActionType.UPSERT_VIBRATION:
+      return {
+        ...prevState,
+        vibrationDetails: {
+          ...prevState.vibrationDetails,
+          isLoading: true,
+        },
+      };
+    case ActionType.UPSERT_VIBRATION_SUCCESS:
+      return {
+        ...prevState,
+        vibrationDetails: {
+          ...prevState.vibrationDetails,
+          isLoading: false,
+        },
+      };
+    case ActionType.UPSERT_VIBRATION_ERROR:
       return {
         ...prevState,
         vibrationDetails: {

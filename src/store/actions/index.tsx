@@ -1,2 +1,2 @@
 export { default as listVibrations } from './listVibrations';
-export { default as vibrationDetails } from './vibrationDetails';
+export { default as upsertVibration } from './upsertVibration';

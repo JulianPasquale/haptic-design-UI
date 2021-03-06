@@ -16,6 +16,11 @@ const initialState: IGlobalState = {
     error: false,
     details: {} as APIResponse,
   },
+  upsertVibration: {
+    isLoading: false,
+    requested: false,
+    error: false,
+  },
 };
 
 interface IStore {

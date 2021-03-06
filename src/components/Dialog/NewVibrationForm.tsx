@@ -30,7 +30,7 @@ export default (
 ): ReactElement => {
   const [payload, setPayload] = useState(initialState);
 
-  useEffect(() => () => setPayload(initialState), [setPayload]);
+  useEffect(() => () => setPayload(initialState), [setPayload, initialState]);
 
   const submitCallback = useCallback(
     (): void => handleSubmit(payload),

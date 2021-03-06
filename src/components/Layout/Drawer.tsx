@@ -11,7 +11,7 @@ import { Vibration, Home, Add, ExpandLess, ExpandMore, Folder } from '@material-
 import styled from 'styled-components';
 
 // utils
-import { drawerWidth, client, APIResponse, initialData, UpsertPayload } from '../../utils';
+import { drawerWidth, APIResponse, initialData, UpsertPayload } from '../../utils';
 
 // dialog
 import { NewVibrationForm, DialogState } from '../../components/Dialog';
@@ -35,7 +35,7 @@ export default memo((): ReactElement => {
   const { state, dispatch } = useContext(store);
 
   useEffect(() => {
-    if (!state.vibrations.requested) {
+    if (!state.vibrations.requested && !state.vibrations.isLoading) {
       actions.listVibrations(dispatch)
     };
   }, [state, dispatch, actions])
@@ -61,7 +61,7 @@ export default memo((): ReactElement => {
   const handleNewVibrationClick = (): void => setDialogState({ open: true });
 
   const handleNewVibrationSubmit = async (payload: UpsertPayload): Promise<void> => {
-    await client.upsert({ ...payload, data: initialData });
+    actions.upsertVibration(dispatch, { ...payload, data: initialData });
     handleCloseDialog();
   };
 
