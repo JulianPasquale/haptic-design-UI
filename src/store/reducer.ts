@@ -48,6 +48,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
           ...prevState.vibrations,
           isLoading: false,
           requested: true,
+          error: false,
           records: action.data,
         },
       };
@@ -56,6 +57,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         ...prevState,
         vibrations: {
           ...prevState.vibrations,
+          isLoading: false,
           error: true,
         },
       };
@@ -74,6 +76,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         vibrationDetails: {
           ...prevState.vibrationDetails,
           isLoading: false,
+          error: false,
           details: action.data,
         },
       };
@@ -82,6 +85,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         ...prevState,
         vibrationDetails: {
           ...prevState.vibrationDetails,
+          isLoading: false,
           error: true,
         },
       };
@@ -99,6 +103,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         ...prevState,
         createVibration: {
           ...prevState.createVibration,
+          error: false,
           isLoading: false,
         },
       };
@@ -107,6 +112,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         ...prevState,
         createVibration: {
           ...prevState.createVibration,
+          isLoading: false,
           error: true,
         },
       };
@@ -125,6 +131,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         editVibration: {
           ...prevState.editVibration,
           isLoading: false,
+          error: false,
         },
       };
     case ActionType.EDIT_VIBRATION_ERROR:
@@ -132,6 +139,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         ...prevState,
         editVibration: {
           ...prevState.editVibration,
+          isLoading: false,
           error: true,
         },
       };

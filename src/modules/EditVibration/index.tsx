@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, FC, ReactElement, useContext } from 'react';
+import React, { useEffect, FC, ReactElement, useContext } from 'react';
 import styled from 'styled-components';
 
 import { useParams } from "react-router-dom";
@@ -33,24 +33,22 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
 
   useEffect(() => {
     if (!vibrationDetails.isLoading && vibrationDetails.requested !== vibrationId) {
-      actions.showVibration(dispatch, vibrationId)
+      actions.showVibration(dispatch, vibrationId);
     };
-  }, [state.vibrationDetails, dispatch, actions, vibrationId])
+  }, [state.vibrationDetails, dispatch, actions, vibrationId]);
 
   const handleDeleteVibration = async () => {
     await client.delete(vibrationDetails.details.id);
   };
 
-  const content = useMemo(
-    () => {
-      if (vibrationDetails.error && vibrationDetails.details.id == vibrationId) {
-        return (
-          <Alert variant='filled' severity='error'>
-            Error al obtener los datos de la vibración
-          </Alert>
-        )
-      } else {
-        return (
+  return (
+    <>
+      <StyledGrid container spacing={0}>
+        {
+          (vibrationDetails.error && vibrationDetails.requested == vibrationId &&
+            <Alert variant='filled' severity='error'>
+              Error al obtener los datos de la vibración
+            </Alert>) ||
           <>
             <Grid
               container
@@ -79,16 +77,7 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
               data={vibrationDetails.details}
             />
           </>
-        )
-      };
-    },
-    [vibrationDetails, vibrationId]
-  )
-
-  return (
-    <>
-      <StyledGrid container spacing={0}>
-        {content}
+        }
       </StyledGrid>
     </>
   );

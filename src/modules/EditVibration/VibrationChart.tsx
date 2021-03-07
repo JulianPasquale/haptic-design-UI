@@ -99,6 +99,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
     dupVibration.data.pattern = [...unchanged, ...toUpdate];
 
     setVibration({ ...dupVibration });
+    actions.editVibration(dispatch, dupVibration);
     handleClose();
   };
 
@@ -135,7 +136,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
                   </InputAdornment>
                 }
                 placeholder='Duración'
-                value={vibration?.data?.duration}
+                value={vibration?.data?.duration || 0}
                 onChange={
                   (event: React.ChangeEvent<HTMLInputElement>) => {
                     setVibration({
