@@ -1,8 +1,8 @@
 import React, { useState, useEffect, FC, ReactElement, useContext } from 'react';
 
 // material-ui
-import { Grid, Fab, InputAdornment, IconButton, Input } from '@material-ui/core';
-import { Add, Save, Timer } from '@material-ui/icons';
+import { Grid, Fab } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 
 // Chart
 import Chart from '../../components/Chart';
@@ -10,8 +10,13 @@ import Chart from '../../components/Chart';
 // Dialog
 import { DotForm, DotFormDialogState } from '../../components/Dialog';
 
+// Inputs
+import { DurationInput } from '../../components/Inputs';
+
+// utils
 import { APIResponse } from '../../utils';
 
+// store
 import { actions, store } from '../../store';
 
 const dialogInitialState: DotFormDialogState = {
@@ -24,7 +29,7 @@ const dialogInitialState: DotFormDialogState = {
 
 export interface VibrationChartProps {
   data: APIResponse;
-}
+};
 
 const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps): ReactElement => {
   const [vibration, setVibration] = useState(data);
@@ -45,7 +50,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
   });
 
   const handleNewDotClick = (): void => {
-    const newPosition = vibration.data.pattern.length;
+    const newPosition = vibration.data.pattern.length + 1;
 
     setDotFormDialogState({
       open: true,
@@ -118,37 +123,22 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
         <Grid item xs={12}>
           <Grid container justify='space-around' alignItems='flex-end' >
             <Grid item>
-              <Input
-                startAdornment={
-                  <InputAdornment position="start">
-                    <Timer />
-                  </InputAdornment>
-                }
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() => actions.editVibration(dispatch, vibration)}
-                      color={vibration?.data?.duration == data?.data?.duration ? 'default' : 'primary'}
-                    >
-                      <Save />
-                    </IconButton>
-                  </InputAdornment>
-                }
-                placeholder='Duración'
+
+              <DurationInput
+                color={vibration?.data?.duration == data?.data?.duration ? 'default' : 'primary'}
+                onClick={() => actions.editVibration(dispatch, vibration)}
                 value={vibration?.data?.duration || 0}
-                onChange={
-                  (event: React.ChangeEvent<HTMLInputElement>) => {
-                    setVibration({
-                      ...vibration,
-                      data: {
-                        ...vibration.data,
-                        duration: parseInt(event.target.value) || 0,
-                      }
-                    } as APIResponse)
-                  }
-                }
+                onChange={(event) => {
+                  setVibration({
+                    ...vibration,
+                    data: {
+                      ...vibration.data,
+                      duration: parseInt(event.target.value) || 0,
+                    }
+                  } as APIResponse)
+                }}
               />
+
             </Grid>
             <Grid item>
               <Fab variant='extended' color='primary' aria-label='add' onClick={handleNewDotClick}>
