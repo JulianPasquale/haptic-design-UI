@@ -1,15 +1,20 @@
-import React, { useState, useEffect, useMemo, FC, ReactElement } from 'react';
+import React, { useEffect, useMemo, FC, ReactElement, useContext } from 'react';
 import styled from 'styled-components';
 
 import { useParams } from "react-router-dom";
 
 import VibrationChart, { VibrationChartProps } from './VibrationChart';
 
-import { client, APIResponse } from '../../utils';
-
+// material-ui
 import { Typography, Grid, Fab } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { DeleteForever } from '@material-ui/icons';
+
+// utils
+import { client } from '../../utils';
+
+// store
+import { actions, store } from '../../store';
 
 interface RouteParams {
   vibrationId: string;
@@ -21,52 +26,27 @@ const StyledGrid = styled(Grid)`
 `
 
 const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement => {
-  const [state, setState] = useState({} as APIResponse);
-  const [requested, setRequested] = useState(false as boolean | string);
+  const { state, dispatch } = useContext(store);
   const { vibrationId } = useParams<RouteParams>();
-  const [deleted, setDeleted] = useState(false);
-  const [founded, setFounded] = useState(true);
+
+  const { vibrationDetails } = state;
 
   useEffect(() => {
-    if (requested == vibrationId) return
-    client.details(vibrationId)
-      .then((response) => {
-        setState(response.data);
-        setFounded(true);
-        setDeleted(false);
-      })
-      .catch(() => {
-        setFounded(false);
-      });
+    if (!vibrationDetails.isLoading && vibrationDetails.requested !== vibrationId) {
+      actions.showVibration(dispatch, vibrationId)
+    };
+  }, [state.vibrationDetails, dispatch, actions, vibrationId])
 
-    setRequested(vibrationId);
-
-    return () => {
-      setState({} as APIResponse);
-    }
-  }, [setState, vibrationId, requested, setRequested, setFounded, setDeleted]);
-
-
-  const handleDeleteVibration = () => {
-    client.delete(state.id).then((response) => {
-      if (response.status == 204) {
-        setDeleted(true);
-      };
-    });
+  const handleDeleteVibration = async () => {
+    await client.delete(vibrationDetails.details.id);
   };
 
   const content = useMemo(
     () => {
-      if (deleted) {
-        return (
-          <Alert variant='filled' severity='success'>
-            La vibración ha sido borrada
-          </Alert>
-        )
-      } else if (!founded) {
+      if (vibrationDetails.error && vibrationDetails.details.id == vibrationId) {
         return (
           <Alert variant='filled' severity='error'>
-            La vibración no existe
+            Error al obtener los datos de la vibración
           </Alert>
         )
       } else {
@@ -81,7 +61,7 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
             >
               <span></span>
               <Typography variant='h3' gutterBottom>
-                {state.name}
+                {vibrationDetails.details.name}
               </Typography>
 
               <Fab
@@ -96,13 +76,13 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
             </Grid>
 
             <Component
-              data={state}
+              data={vibrationDetails.details}
             />
           </>
         )
       };
     },
-    [founded, deleted, state]
+    [vibrationDetails, vibrationId]
   )
 
   return (

@@ -18,7 +18,6 @@ export default async (dispatch: React.Dispatch<Action>, payload: UpsertPayload):
   try {
     const response = await client.upsert(payload);
 
-    debugger;
     Promise.all(
       [
         dispatchSuccess(dispatch, response.data as APIResponse),

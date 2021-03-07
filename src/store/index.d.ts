@@ -10,7 +10,7 @@ export interface IGlobalState {
 interface Requestable {
   isLoading: boolean,
   error: boolean,
-  requested: boolean,
+  requested: boolean | string,
 };
 
 interface IVibrationsState extends Requestable {

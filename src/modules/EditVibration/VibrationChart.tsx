@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC, ReactElement } from 'react';
+import React, { useState, useEffect, FC, ReactElement, useContext } from 'react';
 
 // material-ui
 import { Grid, Fab, InputAdornment, IconButton, Input } from '@material-ui/core';
@@ -10,7 +10,9 @@ import Chart from '../../components/Chart';
 // Dialog
 import { DotForm, DotFormDialogState } from '../../components/Dialog';
 
-import { APIResponse, client } from '../../utils';
+import { APIResponse } from '../../utils';
+
+import { actions, store } from '../../store';
 
 const dialogInitialState: DotFormDialogState = {
   open: false,
@@ -27,6 +29,7 @@ export interface VibrationChartProps {
 const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps): ReactElement => {
   const [vibration, setVibration] = useState(data);
   const [DotFormDialogState, setDotFormDialogState] = useState(dialogInitialState);
+  const { dispatch } = useContext(store);
 
   useEffect(() => {
     setVibration(data);
@@ -76,7 +79,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
     dupVibration.data.pattern = newPattern;
 
     setVibration({ ...dupVibration });
-    client.upsert(dupVibration);
+    actions.editVibration(dispatch, dupVibration);
     handleClose();
   };
 
@@ -124,7 +127,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={() => client.upsert(vibration)}
+                      onClick={() => actions.editVibration(dispatch, vibration)}
                       color={vibration?.data?.duration == data?.data?.duration ? 'default' : 'primary'}
                     >
                       <Save />

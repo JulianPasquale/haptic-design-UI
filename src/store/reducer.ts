@@ -21,7 +21,7 @@ export type Action =
   | { type: ActionType.GET_VIBRATIONS_LIST }
   | { type: ActionType.GET_VIBRATIONS_LIST_SUCCESS, data: Array<APIResponse> }
   | { type: ActionType.GET_VIBRATIONS_LIST_ERROR, error: ErrorEvent }
-  | { type: ActionType.GET_VIBRATION_DETAILS }
+  | { type: ActionType.GET_VIBRATION_DETAILS, vibrationId: string }
   | { type: ActionType.GET_VIBRATION_DETAILS_SUCCESS, data: APIResponse }
   | { type: ActionType.GET_VIBRATION_DETAILS_ERROR, error: ErrorEvent }
   | { type: ActionType.CREATE_VIBRATION }
@@ -64,6 +64,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         ...prevState,
         vibrationDetails: {
           ...prevState.vibrationDetails,
+          requested: action.vibrationId,
           isLoading: true,
         },
       };
@@ -89,6 +90,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         ...prevState,
         createVibration: {
           ...prevState.createVibration,
+          requested: true,
           isLoading: true,
         },
       };
@@ -113,6 +115,7 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         ...prevState,
         editVibration: {
           ...prevState.editVibration,
+          requested: true,
           isLoading: true,
         },
       };
