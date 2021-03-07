@@ -9,9 +9,12 @@ export enum ActionType {
   GET_VIBRATION_DETAILS = 'GET_VIBRATION_DETAILS',
   GET_VIBRATION_DETAILS_SUCCESS = 'GET_VIBRATION_DETAILS_SUCCESS',
   GET_VIBRATION_DETAILS_ERROR = 'GET_VIBRATION_DETAILS_ERROR',
-  UPSERT_VIBRATION = 'UPSERT_VIBRATION',
-  UPSERT_VIBRATION_SUCCESS = 'UPSERT_VIBRATION_SUCCESS',
-  UPSERT_VIBRATION_ERROR = 'UPSERT_VIBRATION_ERROR',
+  CREATE_VIBRATION = 'CREATE_VIBRATION',
+  CREATE_VIBRATION_SUCCESS = 'CREATE_VIBRATION_SUCCESS',
+  CREATE_VIBRATION_ERROR = 'CREATE_VIBRATION_ERROR',
+  EDIT_VIBRATION = 'EDIT_VIBRATION',
+  EDIT_VIBRATION_SUCCESS = 'EDIT_VIBRATION_SUCCESS',
+  EDIT_VIBRATION_ERROR = 'EDIT_VIBRATION_ERROR',
 };
 
 export type Action =
@@ -21,9 +24,12 @@ export type Action =
   | { type: ActionType.GET_VIBRATION_DETAILS }
   | { type: ActionType.GET_VIBRATION_DETAILS_SUCCESS, data: APIResponse }
   | { type: ActionType.GET_VIBRATION_DETAILS_ERROR, error: ErrorEvent }
-  | { type: ActionType.UPSERT_VIBRATION }
-  | { type: ActionType.UPSERT_VIBRATION_SUCCESS, data: APIResponse }
-  | { type: ActionType.UPSERT_VIBRATION_ERROR, error: ErrorEvent };
+  | { type: ActionType.CREATE_VIBRATION }
+  | { type: ActionType.CREATE_VIBRATION_SUCCESS, data: APIResponse }
+  | { type: ActionType.CREATE_VIBRATION_ERROR, error: ErrorEvent }
+  | { type: ActionType.EDIT_VIBRATION }
+  | { type: ActionType.EDIT_VIBRATION_SUCCESS, data: APIResponse }
+  | { type: ActionType.EDIT_VIBRATION_ERROR, error: ErrorEvent };
 
 export const reducer = (prevState: IGlobalState, action: Action): IGlobalState => {
   switch (action.type) {
@@ -78,27 +84,51 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
           error: true,
         },
       };
-    case ActionType.UPSERT_VIBRATION:
+    case ActionType.CREATE_VIBRATION:
       return {
         ...prevState,
-        vibrationDetails: {
-          ...prevState.vibrationDetails,
+        createVibration: {
+          ...prevState.createVibration,
           isLoading: true,
         },
       };
-    case ActionType.UPSERT_VIBRATION_SUCCESS:
+    case ActionType.CREATE_VIBRATION_SUCCESS:
       return {
         ...prevState,
-        vibrationDetails: {
-          ...prevState.vibrationDetails,
+        createVibration: {
+          ...prevState.createVibration,
           isLoading: false,
         },
       };
-    case ActionType.UPSERT_VIBRATION_ERROR:
+    case ActionType.CREATE_VIBRATION_ERROR:
       return {
         ...prevState,
-        vibrationDetails: {
-          ...prevState.vibrationDetails,
+        createVibration: {
+          ...prevState.createVibration,
+          error: true,
+        },
+      };
+    case ActionType.EDIT_VIBRATION:
+      return {
+        ...prevState,
+        editVibration: {
+          ...prevState.editVibration,
+          isLoading: true,
+        },
+      };
+    case ActionType.EDIT_VIBRATION_SUCCESS:
+      return {
+        ...prevState,
+        editVibration: {
+          ...prevState.editVibration,
+          isLoading: false,
+        },
+      };
+    case ActionType.EDIT_VIBRATION_ERROR:
+      return {
+        ...prevState,
+        editVibration: {
+          ...prevState.editVibration,
           error: true,
         },
       };

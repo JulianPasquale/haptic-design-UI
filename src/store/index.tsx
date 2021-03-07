@@ -16,7 +16,12 @@ const initialState: IGlobalState = {
     error: false,
     details: {} as APIResponse,
   },
-  upsertVibration: {
+  createVibration: {
+    isLoading: false,
+    requested: false,
+    error: false,
+  },
+  editVibration: {
     isLoading: false,
     requested: false,
     error: false,

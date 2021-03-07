@@ -1,12 +1,13 @@
 import { Action, ActionType } from '..';
-import { client, APIResponse, UpsertPayload } from '../../utils'
+import { client, APIResponse, UpsertPayload, initialData } from '../../utils'
 
+// actions
 import { listVibrations } from '.';
 
 const dispatchSuccess = async (dispatch: React.Dispatch<Action>, response: APIResponse) => {
   dispatch(
     {
-      type: ActionType.UPSERT_VIBRATION_SUCCESS,
+      type: ActionType.CREATE_VIBRATION_SUCCESS,
       data: response
     }
   );
@@ -17,10 +18,10 @@ const refreshVibrationsList = async (dispatch: React.Dispatch<Action>) => {
 };
 
 export default async (dispatch: React.Dispatch<Action>, payload: UpsertPayload): Promise<void> => {
-  dispatch({ type: ActionType.GET_VIBRATION_DETAILS });
+  dispatch({ type: ActionType.CREATE_VIBRATION });
 
   try {
-    const response = await client.upsert(payload);
+    const response = await client.upsert({ ...payload, data: initialData });
 
     Promise.all(
       [
@@ -29,6 +30,6 @@ export default async (dispatch: React.Dispatch<Action>, payload: UpsertPayload):
       ]
     );
   } catch (error) {
-    dispatch({ type: ActionType.GET_VIBRATION_DETAILS_ERROR, error });
+    dispatch({ type: ActionType.CREATE_VIBRATION_ERROR, error });
   };
 };

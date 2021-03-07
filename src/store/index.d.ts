@@ -3,7 +3,8 @@ import { APIResponse } from '../utils';
 export interface IGlobalState {
   vibrations: IVibrationsState,
   vibrationDetails: IVibrationDetails,
-  upsertVibration: IUpsertVibration,
+  createVibration: ICreateVibration,
+  editVibration: IEditVibration,
 };
 
 interface Requestable {
@@ -20,4 +21,5 @@ interface IVibrationDetails extends Requestable {
   details: APIResponse,
 };
 
-type IUpsertVibration = Requestable;
+type ICreateVibration = Requestable;
+type IEditVibration = Requestable;

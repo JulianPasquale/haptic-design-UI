@@ -1,5 +1,5 @@
 import { Action, ActionType } from '..';
-import { client, APIResponse } from '../../utils'
+import { client, APIResponse } from '../../utils';
 
 export default async (dispatch: React.Dispatch<Action>): Promise<void> => {
   dispatch({ type: ActionType.GET_VIBRATIONS_LIST });
