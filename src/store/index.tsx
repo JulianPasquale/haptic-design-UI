@@ -26,12 +26,17 @@ const initialState: IGlobalState = {
     requested: false,
     error: false,
   },
+  deleteVibration: {
+    isLoading: false,
+    requested: false,
+    error: false,
+  },
 };
 
 interface IStore {
-  state: IGlobalState;
-  dispatch: React.Dispatch<Action>;
-}
+  state: IGlobalState,
+  dispatch: React.Dispatch<Action>,
+};
 
 export const store = createContext<IStore>({ state: initialState } as IStore);
 

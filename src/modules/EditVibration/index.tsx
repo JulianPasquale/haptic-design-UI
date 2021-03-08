@@ -1,7 +1,7 @@
 import React, { useEffect, FC, ReactElement, useContext } from 'react';
 import styled from 'styled-components';
 
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 import VibrationChart, { VibrationChartProps } from './VibrationChart';
 
@@ -9,9 +9,6 @@ import VibrationChart, { VibrationChartProps } from './VibrationChart';
 import { Typography, Grid, Fab } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { DeleteForever } from '@material-ui/icons';
-
-// utils
-import { client } from '../../utils';
 
 // store
 import { actions, store } from '../../store';
@@ -23,7 +20,7 @@ interface RouteParams {
 const StyledGrid = styled(Grid)`
   height: 90vh;
   margin-top: 2%;
-`
+`;
 
 const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement => {
   const { state, dispatch } = useContext(store);
@@ -38,7 +35,7 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
   }, [state.vibrationDetails, dispatch, actions, vibrationId]);
 
   const handleDeleteVibration = async () => {
-    await client.delete(vibrationDetails.details.id);
+    await actions.deleteVibration(dispatch, vibrationDetails.details.id);
   };
 
   return (
