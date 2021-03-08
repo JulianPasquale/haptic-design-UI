@@ -5,6 +5,7 @@ export interface IGlobalState {
   vibrationDetails: IVibrationDetails,
   createVibration: ICreateVibration,
   editVibration: IEditVibration,
+  deleteVibration: IDeleteVibration,
 };
 
 interface Requestable {
@@ -23,3 +24,4 @@ interface IVibrationDetails extends Requestable {
 
 type ICreateVibration = Requestable;
 type IEditVibration = Requestable;
+type IDeleteVibration = Requestable;

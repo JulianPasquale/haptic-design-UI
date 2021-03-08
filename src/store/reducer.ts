@@ -15,6 +15,9 @@ export enum ActionType {
   EDIT_VIBRATION = 'EDIT_VIBRATION',
   EDIT_VIBRATION_SUCCESS = 'EDIT_VIBRATION_SUCCESS',
   EDIT_VIBRATION_ERROR = 'EDIT_VIBRATION_ERROR',
+  DELETE_VIBRATION = 'DELETE_VIBRATION',
+  DELETE_VIBRATION_SUCCESS = 'DELETE_VIBRATION_SUCCESS',
+  DELETE_VIBRATION_ERROR = 'DELETE_VIBRATION_ERROR',
 };
 
 export type Action =
@@ -29,7 +32,10 @@ export type Action =
   | { type: ActionType.CREATE_VIBRATION_ERROR, error: ErrorEvent }
   | { type: ActionType.EDIT_VIBRATION }
   | { type: ActionType.EDIT_VIBRATION_SUCCESS, data: APIResponse }
-  | { type: ActionType.EDIT_VIBRATION_ERROR, error: ErrorEvent };
+  | { type: ActionType.EDIT_VIBRATION_ERROR, error: ErrorEvent }
+  | { type: ActionType.DELETE_VIBRATION }
+  | { type: ActionType.DELETE_VIBRATION_SUCCESS }
+  | { type: ActionType.DELETE_VIBRATION_ERROR, error: ErrorEvent };
 
 export const reducer = (prevState: IGlobalState, action: Action): IGlobalState => {
   switch (action.type) {
@@ -135,6 +141,32 @@ export const reducer = (prevState: IGlobalState, action: Action): IGlobalState =
         },
       };
     case ActionType.EDIT_VIBRATION_ERROR:
+      return {
+        ...prevState,
+        editVibration: {
+          ...prevState.editVibration,
+          isLoading: false,
+          error: true,
+        },
+      };
+    case ActionType.DELETE_VIBRATION:
+      return {
+        ...prevState,
+        editVibration: {
+          ...prevState.editVibration,
+          isLoading: true,
+        },
+      };
+    case ActionType.DELETE_VIBRATION_SUCCESS:
+      return {
+        ...prevState,
+        editVibration: {
+          ...prevState.editVibration,
+          isLoading: false,
+          error: false,
+        },
+      };
+    case ActionType.DELETE_VIBRATION_ERROR:
       return {
         ...prevState,
         editVibration: {

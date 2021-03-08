@@ -26,6 +26,11 @@ const initialState: IGlobalState = {
     requested: false,
     error: false,
   },
+  deleteVibration: {
+    isLoading: false,
+    requested: false,
+    error: false,
+  },
 };
 
 interface IStore {

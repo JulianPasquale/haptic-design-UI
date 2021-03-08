@@ -1,5 +1,5 @@
 import { Action, ActionType } from '..';
-import { client, APIResponse, UpsertPayload, initialData } from '../../utils'
+import { client, APIResponse, UpsertPayload, initialData } from '../../utils';
 
 // actions
 import { listVibrations } from '.';
