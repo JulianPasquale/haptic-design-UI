@@ -1,4 +1,5 @@
 import { APIResponse } from '../utils';
+import * as Actions from './actions'
 
 export interface IGlobalState {
   vibrations: IVibrationsState,
@@ -25,3 +26,7 @@ interface IVibrationDetails extends Requestable {
 type ICreateVibration = Requestable;
 type IEditVibration = Requestable;
 type IDeleteVibration = Requestable;
+
+export interface IActions {
+  [x: keyof Actions]: () => Actions.x
+};
