@@ -50,7 +50,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
   });
 
   const handleNewDotClick = (): void => {
-    const newPosition = vibration.data.pattern.length + 1;
+    const newPosition = vibration.data.pattern.length;
 
     setDotFormDialogState({
       open: true,
@@ -59,7 +59,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
         value: 0,
       },
       dotIndex: newPosition,
-      title: `Agregar punto ${newPosition}`,
+      title: `Agregar punto ${newPosition + 1}`,
       header: 'Nuevo',
     });
   };
@@ -99,6 +99,7 @@ const VibrationChart: FC<VibrationChartProps> = ({ data }: VibrationChartProps):
     const toUpdate = newPattern.slice(index + 1).map(pattern => (
       { ...pattern, name: pattern.name - 1 }
     ));
+
 
     const dupVibration = { ...vibration } as APIResponse;
     dupVibration.data.pattern = [...unchanged, ...toUpdate];
