@@ -10,8 +10,13 @@ import { Typography, Grid, Fab } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { DeleteForever } from '@material-ui/icons';
 
+// utils
+import { patternURLBuilder } from '../../utils';
+
 // store
 import { actions, store } from '../../store';
+
+import { CopyInput } from '../../components/Inputs';
 
 interface RouteParams {
   vibrationId: string;
@@ -54,7 +59,12 @@ const Container = (Component: FC<VibrationChartProps>): FC => (): ReactElement =
               spacing={0}
               style={{ height: '5%' }}
             >
-              <span></span>
+              <div>
+                <CopyInput
+                  text={patternURLBuilder(vibrationId)}
+                />
+              </div>
+
               <Typography variant='h3' gutterBottom>
                 {vibrationDetails.details.name}
               </Typography>
