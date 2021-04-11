@@ -1,6 +1,4 @@
-import { EventHandler } from 'react';
-
-import { MouseEventHandler, ChangeEvent } from 'react';
+import { MouseEventHandler, ChangeEvent, EventHandler } from 'react';
 import { PropTypes } from '@material-ui/core';
 
 interface IDurationInputProps {

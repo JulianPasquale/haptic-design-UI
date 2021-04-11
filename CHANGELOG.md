@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 0.1.3 - 2020-04-11
+- Fix add new point.
+- Add ability to copy vibration pattern URL to clipboard.
+
 ## 0.1.2 - 2020-03-10
 - Add support for staging environment.
 - Use diferente environments in CI.
